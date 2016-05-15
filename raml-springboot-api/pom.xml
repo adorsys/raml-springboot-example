@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>de.adorsys</groupId>
+    <artifactId>raml-springboot-example</artifactId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+
+  <artifactId>raml-springboot-api</artifactId>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>commons-lang</groupId>
+      <artifactId>commons-lang</artifactId>
+      <version>2.6</version>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <finalName>${project.artifactId}</finalName>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.5.1</version>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>2.6</version>
+      </plugin>
+      <plugin>
+        <groupId>com.phoenixnap.oss</groupId>
+        <artifactId>springmvc-raml-plugin</artifactId>
+        <version>0.4.3</version>
+        <configuration>
+          <ramlPath>src/main/resources/api.raml</ramlPath>
+          <outputRelativePath>target/generated-sources</outputRelativePath>
+          <addTimestampFolder>false</addTimestampFolder>
+          <basePackage>de.adorsys.ramlspringboot.api</basePackage>
+          <baseUri>/api</baseUri>
+          <schemaUseLongIntegers>true</schemaUseLongIntegers>
+          <seperateMethodsByContentType>false</seperateMethodsByContentType>
+          <rule>com.phoenixnap.oss.ramlapisync.generation.rules.Spring4ControllerInterfaceRule</rule>
+        </configuration>
+        <executions>
+          <execution>
+            <id>generate-springmvc-endpoints</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>generate-springmvc-endpoints</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
+        <version>1.10</version>
+        <executions>
+          <execution>
+            <id>include-springmvc-endpoints</id>
+            <phase>process-sources</phase>
+            <goals>
+              <goal>add-source</goal>
+            </goals>
+            <configuration>
+              <sources>
+                <source>${project.build.directory}/generated-sources</source>
+              </sources>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>

@@ -1,0 +1,12 @@
+*~
+.DS_Store
+._.*
+.classpath
+.project
+.settings
+.eclipse
+.idea
+*.iml
+target/
+bin/
+classes/

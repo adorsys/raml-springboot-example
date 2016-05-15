@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "type": "object",
+  "description": "A Todo item",
+  "id": "Todo",
+  "javaType": "de.adorsys.ramlspringboot.api.model.Todo",
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "integer",
+      "required": false
+    },
+    "task": {
+      "type": "string",
+      "required": true
+    },
+    "priority": {
+      "type": "integer",
+      "required": true
+    }
+  }
+}
